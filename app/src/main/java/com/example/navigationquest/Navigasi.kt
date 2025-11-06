@@ -1,32 +1,37 @@
-package com.example.navigationquest
+package com.example.questnavigasiui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.navigationquest.view.TampilData
+
 
 enum class Navigasi {
-    Formulir,
+    Formulirku,
     Detail
 }
 
 @Composable
 fun DataApp(
-    navController: NavController = rememberNavController(),
+    navController: NavHostController = rememberNavController(),
     modifier: Modifier
-){
-    Scaffold { isiRuang->
+) {
+    Scaffold { isiRuang ->
         NavHost(
-            NavController = navController,
-            startDestination = Navigasi.Formulir.name,
+            navController = navController,
+            startDestination = Navigasi.Formulirku.name,
 
-            modifier = Modifier.padding(isiRuang)){
-            composable(route = Navigasi.Formulir.name){
-                FormIsian (
-                    OnSubmitButtonClick = {
+            modifier = Modifier.padding(isiRuang)
+        ) {
+            composable(route = Navigasi.Formulirku.name) {
+                FormIsian(
+                    //pilihanjk = jenisK.map { id -> context.resources.getString(id) },
+                    onSubmitButtonClick = {
                         navController.navigate(Navigasi.Detail.name)
                     }
                 )
@@ -34,10 +39,21 @@ fun DataApp(
             composable(route = Navigasi.Detail.name) {
                 TampilData(
                     onBackBtnClick = {
-                        cancelAndBackToFormulir(NavController)
+                        cancelAndBackToFormulirku(navController)
                     }
                 )
             }
         }
     }
+}
+
+@Composable
+fun FormIsian(onSubmitButtonClick: () -> Unit) {
+    TODO("Not yet implemented")
+}
+
+private fun cancelAndBackToFormulirku(
+    navController: NavHostController
+) {
+    navController.popBackStack(Navigasi.Formulirku.name, inclusive = false)
 }
