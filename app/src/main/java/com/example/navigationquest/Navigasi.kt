@@ -1,5 +1,6 @@
 package com.example.navigationquest
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,6 +22,15 @@ fun DataApp(
         NavHost(
             NavController = navController,
             startDestination = Navigasi.Formulir.name,
-        )
+
+            modifier = Modifier.padding(isiRuang)){
+            composable(route = Navigasi.Formulir.name){
+                FormIsian (
+                    OnSubmitButtonClick = {
+                        navController.navigate(Navigasi.Detail.name)
+                    }
+                )
+            }
+        }
     }
 }
